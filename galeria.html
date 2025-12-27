@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Galería</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:#000;
+  color:#fff;
+  font-family:'Montserrat',sans-serif
+}
+
+header{
+  padding:20px 40px;
+  background:#0a0a0a;
+  border-bottom:1px solid #222;
+}
+
+header a{
+  color:#fff;
+  text-decoration:none;
+  font-size:.95rem
+}
+
+.galeria-title{
+  text-align:center;
+  font-size:1.7rem;
+  margin:30px 0 15px;
+  letter-spacing:.08em;
+  text-transform:uppercase
+}
+
+.filtros{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px
+}
+
+.filtro-btn{
+  background:#111827;
+  border:1px solid #27272a;
+  color:#e5e7eb;
+  padding:6px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font-size:.85rem
+}
+
+.filtro-btn.active{
+  background:#facc15;
+  color:#111827;
+  font-weight:700
+}
+
+.galeria{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
+  padding:20px 40px 80px
+}
+
+.foto-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:14px;
+  border:1px solid #1f2937;
+  cursor:pointer;
+  background:#000;
+}
+
+.foto-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  image-rendering: auto;
+}
+
+
+.foto-overlay{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  text-align:center;
+  padding:18px 5px 24px;
+  background:linear-gradient(to top,rgba(0,0,0,.55),transparent)
+}
+
+.foto-nombre{
+  font-size:.9rem;
+  font-weight:700;
+  letter-spacing:.15em;
+  text-transform:uppercase
+}
+
+.foto-linea{
+  width:40%;
+  height:1px;
+  background:#facc15;
+  margin:4px auto 0
+}
+
+.empty-message{
+  grid-column:1/-1;
+  text-align:center;
+  color:#9ca3af
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  color:#888;
+  background:#0f0f0f
+}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:999
+}
+
+.lightbox.active{display:flex}
+
+.lightbox img{
+  max-width:90vw;
+  max-height:80vh;
+  border-radius:8px
+}
+
+.lightbox-caption{
+  margin-top:14px;
+  letter-spacing:.15em;
+  text-transform:uppercase
+}
+
+.lightbox-close{
+  position:absolute;
+  top:18px;
+  right:24px;
+  font-size:1.6rem;
+  cursor:pointer
+}
+
+@media(max-width:768px){
+  header{padding:15px 20px}
+  .galeria{padding:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html">Inicio</a>
+</header>
+
+<h2 class="galeria-title">Explora mi trabajo</h2>
+
+<div class="filtros">
+  <button class="filtro-btn active" data-filter="calles">Calles</button>
+  <button class="filtro-btn" data-filter="retratos">Retratos</button>
+  <button class="filtro-btn" data-filter="eventos">Eventos</button>
+  <button class="filtro-btn" data-filter="estudio">Estudio</button>
+  <button class="filtro-btn" data-filter="productos">Productos</button>
+</div>
+
+<div id="galeria" class="galeria"></div>
+
+<footer>
+© <span id="year"></span> Tu Nombre Photography
+</footer>
+
+<div id="lightbox" class="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightboxImg">
+  <div id="lightboxCaption" class="lightbox-caption"></div>
+</div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* === CONFIGURACIÓN === */
+const categorias = {
+  calles: "imagenes/calles",
+  retratos: "imagenes/retratos",
+  eventos: "imagenes/eventos",
+  estudio: "imagenes/estudio",
+  productos: "imagenes/productos"
+};
+
+const imagenes = {
+  calles: ["calles_1.jpg","calles.jpg"],
+  retratos: ["retratos_fotografico.jpg"],
+  eventos: ["eventos_boda.jpg"],
+  estudio: ["estudio_ft.jpg","estudio_fotografico.jpg"],
+  productos: ["productos_audio.jpg"]
+};
+
+/* === FUNCIONES === */
+function tieneTitulo(nombre){
+  return nombre.toLowerCase().startsWith("titulo_");
+}
+
+function tituloBonito(nombre){
+  return nombre
+    .replace(/^titulo_/i,"")
+    .replace(/\.[^/.]+$/,"")
+    .replace(/_/g," ")
+    .replace(/\b\w/g,l=>l.toUpperCase());
+}
+
+const galeria = document.getElementById("galeria");
+
+function renderGaleria(cat){
+  galeria.innerHTML="";
+
+  if(!imagenes[cat].length){
+    galeria.innerHTML="<p class='empty-message'>Aún no hay fotos.</p>";
+    return;
+  }
+
+  imagenes[cat].forEach(img=>{
+    const card=document.createElement("div");
+    card.className="foto-card";
+
+    const imagen=document.createElement("img");
+    imagen.src=`${categorias[cat]}/${img}`;
+    card.appendChild(imagen);
+
+    if(tieneTitulo(img)){
+      const overlay=document.createElement("div");
+      overlay.className="foto-overlay";
+      overlay.innerHTML=`
+        <p class="foto-nombre">${tituloBonito(img)}</p>
+        <div class="foto-linea"></div>
+      `;
+      card.appendChild(overlay);
+    }
+
+    card.onclick=()=>abrirLightbox(
+      imagen.src,
+      tieneTitulo(img) ? tituloBonito(img) : ""
+    );
+
+    galeria.appendChild(card);
+  });
+}
+
+/* LIGHTBOX */
+const lightbox=document.getElementById("lightbox");
+const lbImg=document.getElementById("lightboxImg");
+const lbCap=document.getElementById("lightboxCaption");
+
+function abrirLightbox(src,titulo){
+  lbImg.src=src;
+  lbCap.textContent=titulo;
+  lightbox.classList.add("active");
+}
+
+lightbox.onclick=()=>lightbox.classList.remove("active");
+
+/* FILTROS */
+document.querySelectorAll(".filtro-btn").forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll(".filtro-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    renderGaleria(btn.dataset.filter);
+  }
+});
+
+renderGaleria("calles");
+</script>
+
+</body>
+</html>

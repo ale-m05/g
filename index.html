@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title> Photography</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fuente elegante -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: #000;
+            color: #f9fafb;
+        }
+
+        a { text-decoration: none; }
+
+        /* ============================================
+           PORTADA (NO TOCADA – QUEDA COMO ANTES)
+        ============================================ */
+        .hero {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            background:
+                linear-gradient(to right,
+                    rgba(0,0,0,0.85) 0%,
+                    rgba(0,0,0,0.65) 30%,
+                    rgba(0,0,0,0.25) 55%,
+                    rgba(0,0,0,0.00) 90%
+                ),
+                url("imagenes/portal.jpeg") center top / cover no-repeat;
+            background-color: #000;
+        }
+
+        /* HEADER */
+        .hero-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 50px;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            letter-spacing: .35em;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #f9fafb;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-left: -20px;   /* 🔼 mueve los iconos a la izquierda */
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            color: #e5e7eb;
+             white-space: nowrap;   /* 🔥 Esto evita que el texto se divida */
+
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-left: 50px;   /* 🔼 mueve los iconos a la izquierda */
+        }
+
+        .social-icons img {
+            width: 20px;
+            height: 20px;
+            opacity: 0.85;
+        }
+
+        .social-icons img:hover {
+            opacity: 1;
+        }
+
+        /* ============================================
+           TEXTO DEL HERO (POSICIÓN AJUSTADA)
+        ============================================ */
+.hero-content {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 10px;   /* 🔼 MENOS, así sube el texto  se cambio*/ 
+    padding-left: 40px;
+    padding-right: 20px;
+    padding-bottom: 80px;
+}
+
+
+.hero-text-box {
+    max-width: 340px;               /* 🔽 un poco más angosto */
+}
+
+.hero-eyebrow {
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;         /* 🔽 menos espacio entre letras */
+    opacity: 0.85;
+    margin-bottom: 10px;
+}
+
+.hero-name {
+    font-size: 2.8rem;              /* un poquito más pequeño */
+    font-weight: 700;
+    line-height: 1.1;               /* 🔽 más compacto verticalmente */
+    letter-spacing: -0.03em;        /* letras un pelín más juntas */
+    margin-bottom: 10px;
+}
+
+.hero-subtitle {
+    font-size: 0.85rem;
+    letter-spacing: 0.28em;         /* menos separado */
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+        .hero-description {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        @media (min-width: 1100px) {
+            .hero {
+                background:
+                    linear-gradient(to right,
+                        rgba(0,0,0,0.85) 0%,
+                        rgba(0,0,0,0.65) 30%,
+                        rgba(0,0,0,0.25) 55%,
+                        rgba(0,0,0,0.0) 90%
+                    ),
+                    /* 🔹 Aquí sí usamos cover para que no queden barras negras */
+                    /* 🔹 Muevo el enfoque un poco a la derecha/abajo donde estás tú */
+                    url("imagenes/portada.jpg") 90% 60% / cover no-repeat;
+            }
+
+            .nav-links { gap: 16px; }
+            .nav-links a { font-size: 0.8rem; }
+
+            .logo {
+                font-size: 0.9rem;
+                letter-spacing: 0.25em;
+            }
+
+            .hero-name { font-size: 2rem; }
+            .hero-subtitle { font-size: 0.8rem; letter-spacing: 0.3em; }
+
+            .section { padding: 30px 20px 40px; }
+        }
+
+        /* ============================================
+           RESPONSIVE — AJUSTE REAL DE TEXTO EN MÓVIL
+        ============================================ */
+@media (max-width: 640px) {
+    .hero-content {
+        padding-top: 150px !important;  /* 🔼 antes 220 */
+        padding-left: 25px !important;
+        padding-right: 25px !important;
+        padding-bottom: 120px !important;
+    }
+
+    .hero-name {
+        font-size: 2.4rem !important;
+    }
+
+
+        }
+
+        /* ============================================
+           RESPONSIVE — COMPUTADORA MEDIA
+        ============================================ */
+@media (min-width: 641px) and (max-width: 1099px) {
+    .hero-content {
+        padding-top: 130px !important;  /* 🔼 antes 170 */
+        padding-left: 70px !important;
+    }
+}
+
+
+        /* ============================================
+           RESPONSIVE — COMPUTADORA GRANDE
+        ============================================ */
+@media (min-width: 1100px) {
+    .hero-content {
+        padding-top: 140px !important;  /* 🔼 antes 190 */
+        padding-left: 90px !important;
+    }
+}
+
+
+        /* ============================================
+           🔹 ESTILOS NUEVOS: GALERÍA GOOGLE DRIVE
+           (NO TOCAN LA PORTADA)
+        ============================================ */
+.galeria-wrapper {
+    padding: 40px 20px 60px;
+    background: #000;
+}
+
+.galeria-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 1 sola columna centrada (puedes cambiar a 2 o 3 si luego añaden más fotos) */
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 480px));
+    justify-content: center;   /* centra el grid */
+    gap: 20px;
+}
+
+/* Imagen grande, centrada y bonita */
+.galeria img {
+    width: 100%;
+    max-width: 480px;          /* ancho máximo en pantallas grandes */
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.galeria img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.8);
+}
+
+footer {
+    padding: 16px 24px 22px;
+    text-align: center;
+    background: #020617;
+    color: #6b7280;
+    font-size: 0.85rem;
+    border-top: 1px solid #111827;
+}
+
+    </style>
+</head>
+<body>
+
+<section class="hero">
+
+    <div class="hero-header">
+        
+
+        <div class="nav-links">
+            <a href="galeria.html">Portafolio</a>
+            <a href="sobremi.html">Sobre mí</a>
+
+            <div class="social-icons">
+                <a href="https://wa.me/50200000000" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+                </a>
+                 <a href="https://instagram.com/tu_usuario" target="_blank"></a>
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png">
+                </a>
+                <a href="https://www.facebook.com/USUARIO_O_LINK" target="_blank">
+
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-content">
+        <div class="hero-text-box">
+
+            <div class="hero-eyebrow">FOTOGRAFÍA <br> PROFESIONAL</div>
+
+            <h1 class="hero-name">Fotografía (nombre de la persona)</h1> <br>
+
+          
+
+            <p class="hero-description">
+                Capturando momentos reales, <br> emociones auténticas y  paisajes <br>que cuentan historias.
+                Cada fotografía <br>es un  recuerdo que merece ser  <br>preservado  con intención <br> y sensibilidad.
+            </p>
+
+        </div>
+    </div>
+
+</section>
+
+<!-- 🔹 GALERÍA AÑADIDA DEBAJO DE LA PORTADA -->
+
+
+
+
+<!-- 🔹 SCRIPT GALERÍA DRIVE -->
+
+
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function abrirInstagram() {
+        const user = "fotografia_rigs";
+        window.location.href = "instagram://user?username=" + user;
+        setTimeout(() => {
+            window.location.href = "https://instagram.com/" + user;
+        }, 700);
+    }
+</script>
+
+</body>
+</html>
